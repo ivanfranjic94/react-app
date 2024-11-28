@@ -31,7 +31,7 @@ export default tseslint.config(
         {
           endOfLine:"auto"
         }
-      ]
+      ],
     },
   },
 )
