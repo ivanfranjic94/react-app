@@ -4,11 +4,13 @@ import CustomButton from "./components/CustomButton";
 import LanguageProvider, { useLanguageContext } from "./context/LanguageContext";
 import Select from "./components/Select";
 import Courses from "./feature/Courses/Courses";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router";
+import Apply from "./feature/course-apply/Apply";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <AppContainer />,
     children: [
       {
         index: true,
@@ -16,7 +18,16 @@ const router = createBrowserRouter([
       },
       {
         path: "courses",
-        element: <Courses />,
+        children: [
+          {
+            index: true,
+            element: <Courses />,
+          },
+          {
+            path: "apply",
+            element: <Apply />,
+          },
+        ],
       },
     ],
   },
@@ -25,13 +36,7 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <LanguageProvider>
-      <div className="container">
-        <NavBar title="CROZ">
-          <CustomButton label="Services" />
-          <LanguagePicker />
-        </NavBar>
-        <RouterProvider router={router} />
-      </div>
+      <RouterProvider router={router} />
     </LanguageProvider>
   );
 }
@@ -48,5 +53,17 @@ function LanguagePicker() {
         { value: "en", title: "EN" },
       ]}
     />
+  );
+}
+
+function AppContainer() {
+  return (
+    <div className="container">
+      <NavBar title="CROZ">
+        <CustomButton label="Services" />
+        <LanguagePicker />
+      </NavBar>
+      <Outlet />
+    </div>
   );
 }
