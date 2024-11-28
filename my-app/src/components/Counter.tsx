@@ -8,10 +8,14 @@ export default function Counter() {
     setCounter((oldCounter) => oldCounter + 1);
   };
 
+  /*   const onContextMenu = () => {
+    setCounter((oldCounter) => oldCounter - 1);
+  }; */
+
   return <CustomButton label={`Kliknut ${counter} puta`} onClick={onClick} />;
-  //return (
-  // <button onClick={onClick} onContextMenu={onContextMenu}>
-  //  Kliknut {counter} puta
-  //</button>
-  //);
+  /*   return (
+    <button onClick={onClick} onContextMenu={onContextMenu}>
+      Kliknut {counter} puta
+    </button>
+  ); */
 }
