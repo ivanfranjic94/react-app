@@ -1,0 +1,104 @@
+Konverzija
+Numerička konverzija
+
+Vrijednost
+Prelazi u
+undefined
+NaN
+null 
+0
+true 
+1
+false
+0
+"  456  "
+456
+"12a"
+NaN
+
+
+Boolean konverzija
+
+Vrijednost
+Prelazi u
+0, null, undefined, NaN, ""
+false
+"true"
+true
+"false"
+true
+sve ostale vrijednosti
+true
+
+
+Template literals
+const username = "mkatanec";
+
+console.log(`Prijavljeni korisnik je: ${username}`);
+
+//console output: 
+Prijavljeni korisnik je: mkatanec
+
+Spread operator
+Kreiranje objekata / listi
+const person = { firstName: "Marko", lastName: "Horvat", age: 35 };
+const student = {
+    firstName: "unknown",
+    ...person,
+    age: 20,
+    jmbag: 1234567890,
+};
+
+student = {
+    firstName: " Marko ",
+    lastName: "Horvat",
+    age: 20,
+    jmbag: 1234567890,
+};
+
+const list = [1, 2, 3, 4];
+const newList = [list, 5, 6];
+newList = [[1, 2, 3, 4], 5, 6]
+
+const list = [1, 2, 3, 4];
+const newList = [...list, 5, 6];
+newList = [1, 2, 3, 4, 5, 6]
+
+Dekonstrukcija objekata / listi
+const person = { firstName: "Marko", lastName: "Horvat", age: 35 };
+const {firstName, birthYear = 2013, ...rest} = person;
+
+firstName = "Marko„
+birthYear = 2013 
+rest = {
+  lastName: "Horvat",
+  age: 35
+}
+
+
+const list = [1, 2, 3, 4, 5, 6];
+const [a, , b, ...rest] = list;
+a = 1
+b = 3
+rest = [4, 5, 6]
+
+List
+const list = [1, 2, 3, 4];
+
+const mappedList = list.map((n, index) => {
+  return n * 2;
+});
+
+mappedList = [2, 4, 6, 8]
+
+const filteredList = list.filter((n) => n % 2 === 0);
+
+filteredList = [2, 4]
+
+const find = list.find(n => n > 2);
+
+find = 3
+
+const reduce = list.reduce((acc, cur) => acc + cur);
+
+reduce = 10

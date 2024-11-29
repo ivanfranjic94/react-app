@@ -6,8 +6,8 @@ import Title from "../../components/Title";
 export default function Apply() {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = {};
+    const formData = new FormData(event.currentTarget);
+    const data: Record<string, unknown> = {};
     formData.forEach((value, name) => {
       data[name] = value;
     });

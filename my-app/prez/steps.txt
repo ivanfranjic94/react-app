@@ -1,3 +1,6 @@
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+
 
 npm create vite@latest my-app -- --template react-ts
 
@@ -419,4 +422,56 @@ function LanguagePicker() {
     />
   );
 }
+
+
+
+.Field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+
+import "./Input.css";
+
+
+interface InputProps {
+  name: string;
+  label: string;
+}
+
+
+export default function Input({
+  name,
+  label,
+}: InputProps) {
+  return (
+    <div className="Field">
+      <label htmlFor={name}>{label}</label>
+      <input id={name} name={name} />
+    </div>
+  );
+}
+
+
+
+  const onSubmit = (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+
+    const data = {};
+
+
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+
+
+    console.log(data);
+  };
+
+
 
