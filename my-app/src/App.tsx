@@ -7,11 +7,13 @@ import Courses from "./feature/Courses/Courses";
 import { createBrowserRouter, Link, Navigate, Outlet, RouterProvider } from "react-router";
 import Apply from "./feature/course-apply/Apply";
 import Attendants from "./feature/Attendants/Attendants";
+import { ErrorBoundary } from "react-error-boundary";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppContainer />,
+    errorElement: <span>Greska u ruti</span>,
     children: [
       {
         index: true,
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
       {
         path: "attendants",
         element: <Attendants />,
+        errorElement: <span>Greska u polaznicima</span>,
       },
     ],
   },
@@ -40,9 +43,13 @@ const router = createBrowserRouter([
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <RouterProvider router={router} />
-    </LanguageProvider>
+    <ErrorBoundary fallback={<span>Greska u renderiranju</span>}>
+      {" "}
+      {/* Testirati tako da se baci error u npr languageprovider */}
+      <LanguageProvider>
+        <RouterProvider router={router} />
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 }
 

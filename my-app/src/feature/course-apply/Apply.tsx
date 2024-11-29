@@ -20,7 +20,7 @@ export default function Apply() {
     // @ts-ignore
     applyAttendant({ ...data, courseId: params.id! }) //! jer znam da ce to biti popunjeno
       .then(() => navigate("/courses"));
-      //.catch;
+    //.catch;
   };
   return (
     <div>
