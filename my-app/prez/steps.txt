@@ -1,3 +1,9 @@
+https://tkdodo.eu/blog/practical-react-query
+
+
+https://react-workshop.ambitiousmushroom-aafdc15b.westeurope.azurecontainerapps.io
+
+
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
 
@@ -474,4 +480,18 @@ export default function Input({
   };
 
 
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    getCourses().then((courses) => {
+      setCourses(courses);
+      setLoading(false);
+    });
+  }, []);
+
+
+  if (loading) {
+    return "Loading course data...";
+  }
 

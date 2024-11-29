@@ -1,14 +1,18 @@
 import { AttendantsResponse } from "../model/attendants";
 
-export default function AttendantsRow({ firstName, lastName, company, email, message, course }: AttendantsResponse) {
+interface AttendantRowProps {
+  attendant: AttendantsResponse;
+}
+export default function AttendantsRow({ attendant }: AttendantRowProps) {
+  //
   return (
     <tr>
-      <td>{firstName}</td>
-      <td>{lastName}</td>
-      <td>{company}</td>
-      <td>{email}</td>
-      <td>{message}</td>
-      <td>{course.title}</td>
+      <td>{attendant.firstName}</td>
+      <td>{attendant.lastName}</td>
+      <td>{attendant.company}</td>
+      <td>{attendant.email}</td>
+      <td>{attendant.message}</td>
+      <td>{attendant.course.title}</td>
     </tr>
   );
 }

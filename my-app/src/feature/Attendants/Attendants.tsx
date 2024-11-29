@@ -28,8 +28,8 @@ export default function Attendants() {
             <th>Message</th>
             <th>Course</th>
           </tr>
-          {attendants.map((attendants) => (
-            <AttendantsRow {...attendants} key={`${attendants.id}`} />
+          {attendants.map((attendant) => (
+            <AttendantsRow attendant={attendant} key={`${attendant.id}`} />
           ))}
         </tbody>
       </table>
