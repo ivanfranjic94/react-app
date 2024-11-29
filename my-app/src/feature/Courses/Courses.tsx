@@ -8,13 +8,21 @@ import { Course as CourseResponse } from "../../model/courses";
 export default function Courses() {
   const title = "Education";
   const [courses, setCourses] = useState<CourseResponse[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     /* fetch("/api/courses") // bolje rjesenje je izdvojiti to u metodu "src/api/courses.ts" koja se kasnije moze reusati 
     .then(response => response.json()) // te kreirati model (interface) "src/model/courses.ts" koji definira polja
     .then(courses => setCourses(courses)) */
-    getCourses().then((courses) => setCourses(courses));
+    getCourses().then((courses) => {
+      setCourses(courses);
+      setLoading(false);
+    });
   }, []);
+
+  if (loading) {
+    return "Loading course data ...";
+  }
 
   return (
     <div className="App">
