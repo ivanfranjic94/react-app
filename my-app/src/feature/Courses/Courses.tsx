@@ -10,6 +10,9 @@ export default function Courses() {
   const [courses, setCourses] = useState<CourseResponse[]>([]);
 
   useEffect(() => {
+    /* fetch("/api/courses") // bolje rjesenje je izdvojiti to u metodu "src/api/courses.ts" koja se kasnije moze reusati 
+    .then(response => response.json()) // te kreirati model (interface) "src/model/courses.ts" koji definira polja
+    .then(courses => setCourses(courses)) */
     getCourses().then((courses) => setCourses(courses));
   }, []);
 
@@ -19,7 +22,7 @@ export default function Courses() {
       <div className="Courses">
         {courses.map(
           (
-            course //(courses || []).map((course) ovo je rijeseno tako da se state inicijalizirao na []
+            course //(courses || []).map((course) jedno od rijesenja, ali bolje tako da se state inicijalizira na []
           ) => (
             <CourseElement {...course} key={course.id} />
           )
