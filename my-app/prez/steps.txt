@@ -495,3 +495,252 @@ export default function Input({
     return "Loading course data...";
   }
 
+import { useEffect, useState } from "react";
+import { AttendantResponse } from "../../model/attendants";
+import { getAttendants } from "../../api/attendats";
+import Title from "../../components/Title";
+
+
+export default function Attendants() {
+  const [attendants, setAttendants] = useState<
+    AttendantResponse[]
+  >([]);
+
+
+  useEffect(() => {
+    getAttendants().then((attendants) =>
+      setAttendants(attendants)
+    );
+  }, []);
+
+
+  return (
+    <div>
+      <Title title="Attendants" />
+      <table>
+        <tbody>
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Company</th>
+            <th>E-mail</th>
+            <th>Message</th>
+            <th>Course</th>
+          </tr>
+          {attendants.map((attendant) => (
+            <tr key={attendant.id}>
+              <td>{attendant.firstName}</td>
+              <td>{attendant.lastName}</td>
+              <td>{attendant.company}</td>
+              <td>{attendant.email}</td>
+              <td>{attendant.message}</td>
+              <td>{attendant.course.title}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+
+table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+
+th {
+  background-color: #f5f5f5;
+  color: #333;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+}
+
+
+tr {
+  transition: background-color 0.3s;
+}
+
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+td {
+  border-bottom: 1px solid #ddd;
+}
+
+
+import { useEffect, useState } from "react";
+import { AttendantResponse } from "../../model/attendants";
+import { getAttendants } from "../../api/attendats";
+import Title from "../../components/Title";
+import "./Attendants.css";
+
+
+export default function Attendants() {
+  const [attendants, setAttendants] = useState<
+    AttendantResponse[]
+  >([]);
+
+
+  useEffect(() => {
+    getAttendants().then((attendants) =>
+      setAttendants(attendants)
+    );
+  }, []);
+
+
+  return (
+    <div>
+      <Title title="Attendants" />
+      <table>
+        <tbody>
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Company</th>
+            <th>E-mail</th>
+            <th>Message</th>
+            <th>Course</th>
+          </tr>
+          {attendants.map((attendant) => (
+            <AttendantRow {...attendant} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+
+function AttendantRow(
+  attendant: AttendantResponse
+) {
+  return (
+    <tr key={attendant.id}>
+      <td>{attendant.firstName}</td>
+      <td>{attendant.lastName}</td>
+      <td>{attendant.company}</td>
+      <td>{attendant.email}</td>
+      <td>{attendant.message}</td>
+      <td>{attendant.course.title}</td>
+    </tr>
+  );
+}
+
+
+npm i react-error-boundary
+
+  const [errors, setErrors] = useState<
+    Record<keyof AttendantsRequest, string>
+  >({} as AttendantsRequest);
+
+import {
+  useNavigate,
+  useParams,
+} from "react-router";
+import { applyAttendant } from "../../api/attendats";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import Textarea from "../../components/Textarea";
+import Title from "../../components/Title";
+import { useState } from "react";
+import { AttendantsRequest } from "../../model/attendants";
+
+
+export default function Apply() {
+  const params = useParams();
+  const navigate = useNavigate();
+  const [errors, setErrors] =
+    useState<
+      Record<keyof AttendantsRequest, string>
+    >();
+
+
+  const onSubmit = (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+    const formData = new FormData(
+      event.currentTarget
+    );
+
+
+    const data: Record<string, unknown> = {};
+
+
+    formData.forEach((value, name) => {
+      data[name] = value;
+    });
+
+
+    const formErrors = {};
+
+
+    if (!data.firstName) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      formErrors.firstName = "Fali first name";
+    }
+
+
+    if (Object.keys(formErrors).length > 0) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      setErrors(formErrors);
+      return;
+    }
+
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    applyAttendant({
+      ...data,
+      courseId: params.id!,
+    }).then(() => navigate("/courses"));
+  };
+
+
+  return (
+    <div>
+      <Title title="Apply to course" />
+      <form onSubmit={onSubmit}>
+        <Input
+          name="firstName"
+          label="First name"
+        />
+        <Input
+          name="lastName"
+          label="Last name"
+        />
+        <Input name="email" label="E-mail" />
+        <Input name="company" label="Company" />
+        <Textarea
+          name="message"
+          label="Message"
+        />
+        <Button label="Submit" />
+      </form>
+    </div>
+  );
+}
+
+
+
